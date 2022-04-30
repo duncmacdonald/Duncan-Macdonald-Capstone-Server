@@ -22,7 +22,7 @@ exports.up = function (knex) {
       table.decimal("latitude", 8, 5);
       table.decimal("longitude", 8, 5);
       table.string("hours");
-      table.string("logo", 10000);
+      table.text("logo", 'longtext');
       table.text("hero", 'longtext');
       // Foreign key to cuisine table
       table

@@ -8,13 +8,13 @@ const { PORT } = process.env;
 
 //require routes
 const restaurants = require("./routes/restaurants");
-// const inventory = require("./routes/inventory");
+const menu = require("./routes/menu");
 
 app.use(cors());
 app.use(express.json());
 // app.use("/static", express.static("public"));
- app.use("/restaurants", restaurants);
-// app.use("/inventory", inventory);
+app.use("/restaurants", restaurants);
+app.use("/menu", menu);
 
 
 
