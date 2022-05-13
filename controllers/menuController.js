@@ -7,7 +7,6 @@ exports.index = (req, res) => {
     .select('*')
     .where({restaurant_id: req.query.restaurant_id})
     .then((data) => {
-      console.log(data);
       res.status(200).json(data);
     })
     .catch((err) =>
