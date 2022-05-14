@@ -70,7 +70,7 @@ exports.initializeOrder = (req, res) => {
               return result; //returns the order_id
             })
             .then((id) => {
-              const new_items = result.bill.map((item) => {
+              const newItems = result.bill.map((item) => {
                 return {
                   quantity: orderItemQuantities[item.id],
                   item_id: item.id,
@@ -80,12 +80,11 @@ exports.initializeOrder = (req, res) => {
               // console.log(new_items);
 
               knex("order_items")
-                .insert(new_items)
+                .insert(newItems)
                 .then((result) => {
                   console.log("new tasty items assigned to order");
-                  console.log(result);
-                  //   return result;
-                });
+                })
+                .then(() => res.status(200).json([newOrder, result.bill]));
             })
             .catch((err) => {
               console.log(err);
@@ -93,5 +92,19 @@ exports.initializeOrder = (req, res) => {
             });
         });
     });
-  res.status(200).send(req.body);
+};
+
+exports.submitOrder = (req, res) => {
+  knex("orders")
+    .where({ user_id: req.body.user_id, order_time: req.body.order_time })
+    .update(
+      {
+        status: "complete",
+        order_time: `${Date.now()}`,
+      }
+    ) //mark food as cooked and update time to reflect time order was submitted to restaurant. This kitchen is really fast...
+    .then(() => {
+      res.status(200).send("Your food is ready");
+    })
+    .catch((err) => res.status(400).send(err));
 };
