@@ -10,13 +10,14 @@ const { PORT } = process.env;
 const restaurants = require("./routes/restaurants");
 const menu = require("./routes/menu");
 const checkout = require("./routes/checkout");
+const orders = require("./routes/orders");
 
 app.use(cors());
 app.use(express.json());
-// app.use("/static", express.static("public"));
 app.use("/restaurants", restaurants);
 app.use("/menu", menu);
 app.use("/checkout", checkout);
+app.use("/orders", orders);
 
 
 // Start the server listening
